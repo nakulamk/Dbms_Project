@@ -2,9 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./GenralStyles.css";
 
-const options = ["Basic", "Premium"];
-
-function CustomerDetailsForms() {
+function EmployeeDetailsForms() {
   const [enteredName, setEnteredName] = useState("");
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -19,31 +17,24 @@ function CustomerDetailsForms() {
   const addressChangeHandler = (event) => {
     setEnteredTAddress(event.target.value);
   };
-  const [enterdSubscription, setEnterSubscription] = useState(options[0]);
-  // const SubscriptionChangeHandler = (event) => {
-  //   console.log(event.target.value);
-  //   setEnterSubscription(Number(event.target.value));
 
-  // };
   const submitHandler = (event) => {
     event.preventDefault();
     const customerData = {
       name: enteredName,
       date: new Date(enteredDate),
       address: enteredAddress,
-      subscription: enterdSubscription,
     };
     console.log(customerData);
     setEnteredName("");
     setEnteredDate("");
     setEnteredTAddress("");
-    setEnterSubscription("");
   };
   return (
     <div className="container">
       <div className="new-expense">
         <div className="login-header">
-          <header className="titles">Customer Details</header>
+          <header className="titles">Employee Details</header>
           {/* <img src="img/trin.png" alt="trin trin logo" className="trin-img" /> */}
         </div>
 
@@ -61,7 +52,7 @@ function CustomerDetailsForms() {
             </div>
 
             <div className="new-expense__control">
-              <label>Subscribed ON </label>
+              <label>Date of Birth</label>
               <input
                 type="date"
                 onChange={dateChangeHandler}
@@ -70,20 +61,6 @@ function CustomerDetailsForms() {
               ></input>
             </div>
 
-            <div className="new-expense__control">
-              <label>Subscription</label>
-              <select
-                required
-                value={enterdSubscription}
-                onChange={(event) => setEnterSubscription(event.target.value)}
-              >
-                {options.map((value) => (
-                  <option value={value} key={value}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-            </div>
             <div className="new-expense__control">
               <label>Address</label>
               <input
@@ -103,4 +80,4 @@ function CustomerDetailsForms() {
     </div>
   );
 }
-export default CustomerDetailsForms;
+export default EmployeeDetailsForms;

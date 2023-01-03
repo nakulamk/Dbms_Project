@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 import "./GenralStyles.css";
 
-const options = ["Basic", "Premium"];
+const options = ["Good", "Bad"];
+const gearCheck = ["Yes", "No"];
 
-function CustomerDetailsForms() {
-  const [enteredName, setEnteredName] = useState("");
-  const nameChangeHandler = (event) => {
-    setEnteredName(event.target.value);
+function CycleDetailsForms() {
+  const [enteredDistance, setEnteredDistance] = useState("");
+  const distanceChangeHandler = (event) => {
+    setEnteredDistance(event.target.value);
   };
 
   const [enteredDate, setEnteredDate] = useState("");
@@ -15,11 +16,9 @@ function CustomerDetailsForms() {
     setEnteredDate(event.target.value);
   };
 
-  const [enteredAddress, setEnteredTAddress] = useState("");
-  const addressChangeHandler = (event) => {
-    setEnteredTAddress(event.target.value);
-  };
-  const [enterdSubscription, setEnterSubscription] = useState(options[0]);
+  const [enteredIsGear, setEnteredIsGear] = useState(gearCheck[0]);
+
+  const [enterdCondition, setEnterCondition] = useState(options[0]);
   // const SubscriptionChangeHandler = (event) => {
   //   console.log(event.target.value);
   //   setEnterSubscription(Number(event.target.value));
@@ -28,40 +27,29 @@ function CustomerDetailsForms() {
   const submitHandler = (event) => {
     event.preventDefault();
     const customerData = {
-      name: enteredName,
+      distance: enteredDistance,
       date: new Date(enteredDate),
-      address: enteredAddress,
-      subscription: enterdSubscription,
+      isgear: enteredIsGear,
+      condition: enterdCondition,
     };
     console.log(customerData);
-    setEnteredName("");
+    setEnteredDistance("");
     setEnteredDate("");
-    setEnteredTAddress("");
-    setEnterSubscription("");
+
+    setEnterCondition("");
   };
   return (
     <div className="container">
       <div className="new-expense">
         <div className="login-header">
-          <header className="titles">Customer Details</header>
+          <header className="titles">Cycle Details</header>
           {/* <img src="img/trin.png" alt="trin trin logo" className="trin-img" /> */}
         </div>
 
         <form onSubmit={submitHandler}>
           <div className="new-expense__controls">
             <div className="new-expense__control">
-              <label>Full Name</label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                onChange={nameChangeHandler}
-                value={enteredName}
-                required
-              ></input>
-            </div>
-
-            <div className="new-expense__control">
-              <label>Subscribed ON </label>
+              <label>Service Date </label>
               <input
                 type="date"
                 onChange={dateChangeHandler}
@@ -71,11 +59,22 @@ function CustomerDetailsForms() {
             </div>
 
             <div className="new-expense__control">
-              <label>Subscription</label>
+              <label>Distance Travelled </label>
+              <input
+                type="number"
+                placeholder="Enter distance travelled"
+                onChange={distanceChangeHandler}
+                value={enteredDistance}
+                required
+              ></input>
+            </div>
+
+            <div className="new-expense__control">
+              <label>Cycle Condition</label>
               <select
                 required
-                value={enterdSubscription}
-                onChange={(event) => setEnterSubscription(event.target.value)}
+                value={enterdCondition}
+                onChange={(event) => setEnterCondition(event.target.value)}
               >
                 {options.map((value) => (
                   <option value={value} key={value}>
@@ -84,15 +83,20 @@ function CustomerDetailsForms() {
                 ))}
               </select>
             </div>
+
             <div className="new-expense__control">
-              <label>Address</label>
-              <input
-                type="text"
-                placeholder="Enter your address"
-                onChange={addressChangeHandler}
-                value={enteredAddress}
+              <label>Is Gear</label>
+              <select
                 required
-              ></input>
+                value={enteredIsGear}
+                onChange={(event) => setEnteredIsGear(event.target.value)}
+              >
+                {gearCheck.map((value) => (
+                  <option value={value} key={value}>
+                    {value}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="new-expense__actions">
@@ -103,4 +107,4 @@ function CustomerDetailsForms() {
     </div>
   );
 }
-export default CustomerDetailsForms;
+export default CycleDetailsForms;
