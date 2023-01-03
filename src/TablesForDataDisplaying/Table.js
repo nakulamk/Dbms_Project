@@ -6,30 +6,34 @@ function Table() {
       <table className="content-table">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Points</th>
-            <th>Team</th>
+            <th>Station ID</th>
+            <th>Station Name</th>
+            <th>Station Address</th>
+            <th>Cycle Cpacity</th>
+            <th>Employee ID</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
-            <td>Domenic</td>
-            <td>88,110</td>
-            <td>dcode</td>
+            <td>abce</td>
+            <td>1234</td>
+            <td>abce</td>
+            <td>adcd</td>
           </tr>
           <tr>
             <td>2</td>
-            <td>Sally</td>
-            <td>72,400</td>
-            <td>Students</td>
+            <td>abce</td>
+            <td>1234</td>
+            <td>abce</td>
+            <td>adcd</td>
           </tr>
           <tr>
             <td>3</td>
-            <td>Nick</td>
-            <td>52,300</td>
-            <td>dcode</td>
+            <td>abce</td>
+            <td>1234</td>
+            <td>abce</td>
+            <td>adcd</td>
           </tr>
         </tbody>
       </table>

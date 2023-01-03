@@ -10,12 +10,12 @@ import Table from "./TablesForDataDisplaying/Table";
 function App() {
   return (
     <div>
-      <CustomerDetailsForms></CustomerDetailsForms>
+      {/* <CustomerDetailsForms></CustomerDetailsForms>
       <CycleDetailsForms></CycleDetailsForms>
       <EmployeeDetailsForms></EmployeeDetailsForms>
       <ServiceStationForms></ServiceStationForms>
       <StationDetailsForms></StationDetailsForms>
-      <TripDetailsForms></TripDetailsForms>
+      <TripDetailsForms></TripDetailsForms> */}
 
       <Table></Table>
     </div>
