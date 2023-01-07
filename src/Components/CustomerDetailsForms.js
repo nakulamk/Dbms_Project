@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import "./GenralStyles.css";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const options = ["Basic", "Premium"];
 
@@ -19,21 +21,33 @@ function CustomerDetailsForms() {
   const addressChangeHandler = (event) => {
     setEnteredTAddress(event.target.value);
   };
-  const [enterdSubscription, setEnterSubscription] = useState(options[0]);
+  // console.log(options[0])
+  const [enteredSubscription, setEnterSubscription] = useState([options[0]]);
+  console.log(enteredSubscription);
   // const SubscriptionChangeHandler = (event) => {
   //   console.log(event.target.value);
   //   setEnterSubscription(Number(event.target.value));
 
+  
   // };
-  const submitHandler = (event) => {
+  const navigate = useNavigate();
+  const submitHandler = async (event) => {
     event.preventDefault();
     const customerData = {
-      name: enteredName,
-      date: new Date(enteredDate),
-      address: enteredAddress,
-      subscription: enterdSubscription,
+      custName: enteredName,
+      subscribedOn: enteredDate,
+      custAddress: enteredAddress,
+      subscriptionType: enteredSubscription,
     };
-    console.log(customerData);
+    //console.log(customerData.subscribedOn);
+
+    try {
+      await axios.post("http://localhost:8080/customer", customerData);
+      navigate("/customer")
+    } catch (err) {
+      console.log(err);
+    }
+    //console.log(customerData);
     setEnteredName("");
     setEnteredDate("");
     setEnteredTAddress("");
@@ -61,7 +75,7 @@ function CustomerDetailsForms() {
             </div>
 
             <div className="new-expense__control">
-              <label>Subscribed ON </label>
+              <label>Subscribed On</label>
               <input
                 type="date"
                 onChange={dateChangeHandler}
@@ -71,10 +85,10 @@ function CustomerDetailsForms() {
             </div>
 
             <div className="new-expense__control">
-              <label>Subscription</label>
+              <label>Subscription Type</label>
               <select
                 required
-                value={enterdSubscription}
+                value={enteredSubscription}
                 onChange={(event) => setEnterSubscription(event.target.value)}
               >
                 {options.map((value) => (

@@ -2,22 +2,32 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 // data from "./MockData.json";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-function Table() {
+function CustomerTable() {
   const [contents, setContent] = useState([]);
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/");
-        console.log(res.data);
+        const res = await axios.get("http://localhost:8080/customer");
+        //  console.log(res.data);
         setContent(res.data);
-        console.log(res);
+        //    console.log(res);
       } catch (err) {
         console.log(err);
       }
     };
     fetchContents();
   }, []);
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete("http://localhost:8080/customer/" + id);
+      console.log("called");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="container">
       <table className="content-table">
@@ -26,10 +36,11 @@ function Table() {
             <th>Customer ID</th>
             <th>Customer Name</th>
             <th>Customer Address</th>
-            <th>subscription type</th>
-            <th>subscribed On</th>
-            <th>subscribedUpto</th>
-            <th>distCycled</th>
+            <th>Subscription Type</th>
+            <th>Subscribed On</th>
+            <th>Subscribed Upto</th>
+            <th>Distance Cycled</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +53,28 @@ function Table() {
               <td>{content.subscribedOn}</td>
               <td>{content.subscribedUpto}</td>
               <td>{content.distCycled}</td>
+              <td>
+                <Link to={`/customer/${content.custID}`}>
+                  {" "}
+                  <button
+                    className="edit-delete-buttons"
+                    variant="tertiary"
+                    size="xs"
+                  >
+                    Update
+                  </button>{" "}
+                </Link>
+                <button
+                  className="edit-delete-buttons"
+                  variant="tertiary"
+                  size="xs"
+                  onClick={() => {
+                    handleDelete(content.custID);
+                  }}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -50,4 +83,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default CustomerTable;

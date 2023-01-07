@@ -3,12 +3,12 @@ import "./style.css";
 // data from "./MockData.json";
 import axios from "axios";
 
-function Table() {
+function ServiceTable() {
   const [contents, setContent] = useState([]);
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/");
+        const res = await axios.get("http://localhost:8080/service");
         console.log(res.data);
         setContent(res.data);
         console.log(res);
@@ -18,6 +18,15 @@ function Table() {
     };
     fetchContents();
   }, []);
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete("http://localhost:8080/service/" + id);
+      console.log("called");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="container">
       <table className="content-table">
@@ -28,6 +37,7 @@ function Table() {
             <th>Due Date</th>
             <th>Spare Parts Count</th>
             <th>Cycle ID</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +48,28 @@ function Table() {
               <td>{content.dueDate}</td>
               <td>{content.sparePartsCount}</td>
               <td>{content.cycID}</td>
+              <td>
+                <Link to={`/service/${content.serviceID}`}>
+                  {" "}
+                  <button
+                    className="edit-delete-buttons"
+                    variant="tertiary"
+                    size="xs"
+                  >
+                    Update
+                  </button>{" "}
+                </Link>
+                <button
+                  className="edit-delete-buttons"
+                  variant="tertiary"
+                  size="xs"
+                  onClick={() => {
+                    handleDelete(content.serviceID);
+                  }}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -46,4 +78,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default ServiceTable;

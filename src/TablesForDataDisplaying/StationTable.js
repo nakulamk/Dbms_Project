@@ -3,7 +3,7 @@ import "./style.css";
 // data from "./MockData.json";
 import axios from "axios";
 
-function Table() {
+function StationTable() {
   const [contents, setContent] = useState([]);
   useEffect(() => {
     const fetchContents = async () => {
@@ -18,6 +18,15 @@ function Table() {
     };
     fetchContents();
   }, []);
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete("http://localhost:8080/station/" + id);
+      console.log("called");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="container">
       <table className="content-table">
@@ -28,6 +37,7 @@ function Table() {
             <th>Station Address</th>
             <th>Cycle Capacity</th>
             <th>Employee ID</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +48,28 @@ function Table() {
               <td>{content.stnAddress}</td>
               <td>{content.cycCapacity}</td>
               <td>{content.empID}</td>
+              <td>
+                <Link to={`/station/${content.stnID}`}>
+                  {" "}
+                  <button
+                    className="edit-delete-buttons"
+                    variant="tertiary"
+                    size="xs"
+                  >
+                    Update
+                  </button>{" "}
+                </Link>
+                <button
+                  className="edit-delete-buttons"
+                  variant="tertiary"
+                  size="xs"
+                  onClick={() => {
+                    handleDelete(content.stnID);
+                  }}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -46,4 +78,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default StationTable;
